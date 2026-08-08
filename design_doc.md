@@ -124,7 +124,7 @@ score = planner_confidence × grounder_confidence × exp(-dist² / 2σ²)
 
 Where `dist` is the distance from the grounder's prediction to the candidate center, and `σ = 0.3` (paper default).
 
-Non-Maximum Suppression (NMS) removes overlapping candidates. If the best candidate's confidence is below threshold (0.55), the system **recurses** into the top region and repeats, up to `MAX_SEARCH_DEPTH=3`.
+Non-Maximum Suppression (NMS) removes overlapping candidates. If the best candidate's confidence is below threshold (0.60), the system **recurses** into the top region and repeats, up to `MAX_SEARCH_DEPTH=3`.
 
 **Why this outperforms alternatives:**
 - The planner's job is to *propose regions*, not *find pixels* — a task LLMs excel at

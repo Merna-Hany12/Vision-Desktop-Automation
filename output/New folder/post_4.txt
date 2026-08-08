@@ -1,3 +1,0 @@
-Title: Fallback Mock Post 4
-
-This is some mock content for post 4 because the network API request failed. The automation will type this out anyway!

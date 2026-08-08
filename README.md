@@ -124,7 +124,7 @@ All settings are configured via `.env`:
 | `PLANNER_BACKEND` | `gemini` | Planner: `gemini`, `groq`, `sbg` |
 | `GROUNDER_BACKEND` | `gemini` | Grounder: `gemini`, `groq`, `sbg` |
 | `MAX_SEARCH_DEPTH` | `3` | ScreenSeekeR recursion depth |
-| `CONFIDENCE_THRESHOLD` | `0.40` | Min confidence to accept detection |
+| `CONFIDENCE_THRESHOLD` | `0.60` | Min confidence to accept detection |
 | `NUM_CANDIDATES` | `3` | Candidate regions to propose |
 | `MAX_GROUNDING_RETRIES` | `3` | Retries if icon not found |
 
