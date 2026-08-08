@@ -19,16 +19,16 @@
 
 ### What This Project Does
 
-This is a **vision-based desktop automation** system that:
+This is a **vision-based desktop automation** system. The included workflow demonstrates how it can:
 1. Takes a screenshot of your Windows desktop
-2. Uses AI (Google Gemini) to **visually locate** the Notepad icon — no matter where it is
+2. Uses a vision-language model to **visually locate** a Notepad shortcut from a natural-language description
 3. Double-clicks it to open Notepad
 4. Types blog post content fetched from an API
 5. Saves the file and repeats 10 times
 
 ### Why It's Built This Way
 
-The assignment explicitly requires that the system **must not use hardcoded coordinates, template matching, or Windows APIs** to find the icon. Instead, it must use a **visual grounding approach** based on the [ScreenSpot-Pro paper (arXiv 2504.07981)](https://arxiv.org/abs/2504.07981).
+The implementation does not use hardcoded coordinates, template matching, or accessibility-tree lookups to locate the target. Instead, it uses a **visual grounding approach** inspired by the [ScreenSpot-Pro paper (arXiv 2504.07981)](https://arxiv.org/abs/2504.07981).
 
 This means the system must work like a **human**: look at the screen, understand what's on it, and find the target visually.
 
@@ -37,12 +37,12 @@ This means the system must work like a **human**: look at the screen, understand
 > *"Strategically reducing the search area enhances accuracy."*
 > — ScreenSpot-Pro, 2025
 
-Instead of asking the AI to find a tiny 64×64 icon on a massive 1920×1080 screen (which fails >95% of the time), we:
+Instead of asking the model to find a small icon on a full desktop screenshot, the pipeline:
 1. First ask: *"Which region of the screen likely contains this icon?"* (easy task)
 2. Then crop that region and ask: *"Where exactly is the icon in this small crop?"* (much easier task)
 3. If still unsure, zoom in further and ask again (recursive refinement)
 
-This is the **ScreenSeekeR** algorithm — and it boosts accuracy from ~5% to ~48%.
+This staged search follows the **ScreenSeekeR** strategy: narrow the visual search area before requesting precise localization.
 
 ---
 
@@ -52,16 +52,15 @@ This is the **ScreenSeekeR** algorithm — and it boosts accuracy from ~5% to ~4
 
 | Library | What It Does | Why This One Over Alternatives |
 |---|---|---|
-| **mss** | Screenshot capture | 3-5× faster than `PIL.ImageGrab`. On Windows, `ImageGrab` uses GDI which is slow. `mss` uses DirectX capture, making each screenshot take ~50ms instead of ~200ms. Over 10 iterations, this saves ~1.5 seconds. |
-| **google-genai** | Gemini AI API client | **100% free** via Google AI Studio. No credit card needed. GPT-4o costs ~$0.01/image. For 10 posts × 4 Gemini calls each = 40 calls = $0.00. Also, Gemini 2.5 Flash is very fast for vision tasks (1-2s response). |
-| **pyautogui** | Mouse/keyboard control | The most mature Windows automation library. Supports `FAILSAFE` mode (move mouse to corner to abort) which is critical during demos. Alternatives like `pynput` don't have this safety feature. |
+| **mss** | Screenshot capture | Primary capture method; the module also falls back to `PIL.ImageGrab` and PowerShell capture if needed. |
+| **google-genai** | Gemini AI API client | Provides the configured vision-language model used for planning and grounding. |
+| **pyautogui** | Mouse/keyboard control | Executes clicks and keyboard input and provides a fail-safe abort mechanism. |
 | **pyperclip** | Clipboard text paste | `pyautogui.write()` sends individual keystrokes — it drops characters at speed and can't handle Unicode. Clipboard paste (`Ctrl+V`) is instant and handles all characters. |
-| **opencv-python** | Image annotation + NMS | We need Non-Maximum Suppression (NMS) for deduplicating overlapping bounding boxes. OpenCV also draws the annotated screenshots (blue boxes, green boxes, red crosshairs). |
-| **loguru** | Structured logging | Built-in `logging` module requires boilerplate. Loguru gives colored console output + rotating file logs in 3 lines. During the interview demo, structured logs help you explain what's happening in real-time. |
+| **opencv-python** | Image annotation | Draws the annotated screenshots: candidate regions, final bounding boxes, and click markers. |
+| **loguru** | Structured logging | Provides colored console output and rotating file logs for debugging automation runs. |
 | **tenacity** | Retry logic | Exponential backoff for API calls and grounding retries. Without this, a single network hiccup kills the entire 10-post workflow. |
-| **python-dotenv** | Environment config | Loads `.env` file so API keys never appear in source code. Critical for GitHub submission — you don't want to commit your Gemini key. |
-| **uv** | Package manager | **Required by the assignment**. Also 10-100× faster than pip for dependency resolution. |
-| **pywin32** | Windows API utilities | Used by `pyautogui` internally for Windows mouse/keyboard hooks. Also enables PowerShell subprocess calls for window title detection. |
+| **python-dotenv** | Environment config | Loads `.env` configuration while keeping credentials out of source control. |
+| **uv** | Package manager | Installs locked dependencies and runs the project consistently. |
 
 ### Why This Folder Structure?
 
@@ -94,7 +93,6 @@ This is the **Single Responsibility Principle** applied at the package level.
 **What it does:** Defines the Python project metadata, dependencies, and build system for `uv`.
 
 **Why it matters:**
-- The assignment requires `uv` configuration as a deliverable
 - Separates core dependencies from optional ones (`gpu-model`, `ollama-model`, `dev`)
 - The `[project.scripts]` section lets you run `uv run automate` instead of typing the full Python path
 
@@ -108,7 +106,7 @@ This is the **Single Responsibility Principle** applied at the package level.
 
 **Why it matters:**
 - The actual `.env` file is in `.gitignore` (never committed to Git)
-- Evaluators can see exactly what needs to be configured without reading the code
+- Users can see exactly what needs to be configured without reading the code
 - Every tunable parameter (confidence threshold, search depth, number of candidates) is here — not buried in source code
 
 **Key design choice:** `GROUNDER_BACKEND=gemini` as default. This means the project works immediately on any machine with a Gemini key — no GPU, no Ollama, no extra setup.
@@ -123,11 +121,11 @@ This is the **Single Responsibility Principle** applied at the package level.
 
 | Setting | Default | Why |
 |---|---|---|
-| `SCREEN_WIDTH/HEIGHT` | 1920×1080 | Target resolution from the assignment |
-| `GEMINI_PLANNER_MODEL` | gemini-2.5-flash | Best free model for spatial reasoning |
+| `SCREEN_WIDTH/HEIGHT` | 1920×1080 | Default reference resolution used by the workflow |
+| `GEMINI_PLANNER_MODEL` | gemini-3.5-flash-lite | Default planner model; configurable through `.env` |
 | `NUM_CANDIDATES` | 3 | ScreenSeekeR paper: 3-5 candidates is optimal. 3 minimizes API calls while covering the screen |
 | `MAX_SEARCH_DEPTH` | 3 | Paper: depth 3 gives best accuracy/speed tradeoff. Depth 4+ adds latency without improving results |
-| `CONFIDENCE_THRESHOLD` | 0.55 | Below this, the system recurses. 0.55 balances between accepting correct-but-uncertain results and avoiding false clicks |
+| `CONFIDENCE_THRESHOLD` | 0.60 | Below this, the system recurses instead of accepting the result |
 | `SIGMA` | 0.3 | Gaussian scoring decay from the paper. Controls how quickly the score drops when the grounder's prediction is far from the candidate center |
 | `NMS_IOU_THRESHOLD` | 0.5 | Standard object detection NMS threshold. Two boxes overlapping >50% are considered the same target |
 | `BOX_DILATION_FACTOR` | 1.2 | Expands bounding boxes by 20% to avoid cutting off icons at boundaries |
@@ -283,7 +281,7 @@ ground("Notepad icon", screenshot, depth=0)
 ├── NMS: apply_nms() → Remove overlapping duplicates
 │
 └── Decision:
-    ├── IF best.confidence >= 0.55:
+    ├── IF best.confidence >= 0.60:
     │   └── RETURN (screen_x, screen_y) ← convert to absolute pixels
     │
     └── ELSE (low confidence):
@@ -352,11 +350,11 @@ This function:
 5. Executes the appropriate action (Enter, Escape, Y, N, or finds the button via ScreenSeekeR)
 
 **Why this is critical:**
-The assignment says: *"We are looking for the most flexible implementation, where we can bypass things like unexpected pop-ups without knowing what they look like in advance."*
+The handler is designed to bypass blocking dialogs without relying on a pre-recorded image or a fixed dialog layout.
 
 Traditional automation hardcodes dialog handling: `if title == "Save As": press Enter`. This fails for any dialog the developer didn't anticipate.
 
-Our approach works for **any dialog ever** because Gemini understands what it sees and decides the appropriate action — even for dialogs it's never seen before.
+The model can propose an action for previously unseen dialogs, and when a specific button is described, the same visual-grounding pipeline is used to locate it. As with any vision-model decision, the result should be verified and handled conservatively.
 
 ---
 
@@ -412,7 +410,7 @@ Our approach works for **any dialog ever** because Gemini understands what it se
 - Failed posts are logged but don't crash the entire workflow
 
 **Why annotate only the first 3 posts?**
-The assignment requires 3 annotated screenshots showing the icon in different positions (top-left, center, bottom-right). You move the icon between runs to generate these.
+The workflow saves a small set of annotated screenshots to make the planner regions, final grounding result, and click point easy to inspect.
 
 ---
 
@@ -436,7 +434,7 @@ The assignment requires 3 annotated screenshots showing the icon in different po
 | GPT-4o as planner | Gemini 2.5 Flash | Free (no OpenAI key needed) |
 | OS-Atlas-7B as grounder | Gemini (configurable) | 8GB RAM / no GPU constraint |
 | Separate planner + grounder models | Same model, different prompts | Simpler deployment, fewer dependencies |
-| No popup handling | Full popup detection via Gemini | Assignment requires unexpected popup handling |
+| No popup handling | Full popup detection via Gemini | Supports flexible handling of blocking dialogs |
 
 ### The Data Flow
 
@@ -446,7 +444,7 @@ User Request: "Find Notepad icon"
         ▼
 ┌─────────────────────────┐
 │ Desktop Screenshot       │  1920×1080 PNG
-│ (mss capture)           │  ~50ms
+│ (mss capture)           │
 └────────┬────────────────┘
          │
          ▼
@@ -454,7 +452,7 @@ User Request: "Find Notepad icon"
 │ PLANNER (Gemini)        │  "Where might Notepad be?"
 │                         │
 │ Input:  Full screenshot │
-│ Output: 3 regions       │  ~1-2s
+│ Output: 3 regions       │
 │         [0.0,0.0,0.2,0.3]  "Top-left icon grid"
 │         [0.4,0.3,0.6,0.5]  "Center cluster"
 │         [0.7,0.6,0.9,0.8]  "Bottom-right area"
@@ -485,7 +483,7 @@ User Request: "Find Notepad icon"
 ┌─────────────────────────┐
 │ DECISION                │
 │                         │
-│ 0.82 >= 0.55 threshold? │  Yes → Accept!
+│ 0.82 >= 0.60 threshold? │  Yes → Accept!
 │                         │
 │ Convert to screen coords│
 │ (0.12, 0.18) → (230, 194)
@@ -505,7 +503,7 @@ The system is designed for a **live demo during an interview**. A crash is the w
 
 | Error | Recovery | Why Not Just Crash? |
 |---|---|---|
-| Gemini API returns garbage JSON | Fallback to 3 default regions | Still finds the icon ~60% of the time |
+| Gemini API returns malformed JSON | Fallback to 3 default regions | Allows the search to continue |
 | Icon not found after 3 depths | Retry with fresh screenshot | Desktop state may have changed |
 | Notepad won't open | Check for popup, re-click | Maybe a "Run as admin?" dialog appeared |
 | Save fails | Try again, then skip post | Better to save 9/10 than 0/10 |
@@ -528,7 +526,7 @@ Our approach (robust):
 ```python
 screenshot = capture_desktop()
 response = gemini.analyze("Is there a popup? What button should I press?")
-# Works for ANY dialog — even ones we've never seen
+# The result is treated as a model recommendation and handled conservatively.
 ```
 
 ---
@@ -540,7 +538,7 @@ response = gemini.analyze("Is there a popup? What button should I press?")
 #### 1.1 — Multi-Model Ensemble Grounding
 **What:** Run 2-3 different grounding models in parallel and take the consensus.
 **How:** Add Claude 3.5 Sonnet and Qwen2.5-VL alongside Gemini. If 2/3 models agree on the same region (IoU > 0.5), confidence is boosted.
-**Impact:** Could improve accuracy from ~75% to ~90% on first attempt.
+**Impact:** May improve robustness when models agree on the same target.
 **Difficulty:** Medium (add API clients, voting logic)
 
 #### 1.2 — Icon-Specific Fine-Tuning Prompt Library
@@ -688,8 +686,8 @@ Use Gemini as a planner to break this into steps, then ScreenSeekeR to ground ea
 
 ## Summary
 
-This project implements a **production-grade visual grounding pipeline** based on peer-reviewed research. Every design decision — from the library choice to the scoring formula to the error handling — is intentional and defensible.
+This project implements a visual-grounding pipeline inspired by peer-reviewed research. The architecture separates planning, precise localization, scoring, and automation so each component can be tested and improved independently.
 
-The system is **fully general**: changing the `target_description` string from `"Notepad icon"` to `"any other icon or button"` requires zero code changes.
+Notepad is the demonstration target. The grounding interface accepts a natural-language target description, so the same pipeline can be applied to other icons, buttons, and dialog controls without predefined target images or fixed coordinates.
 
 The future enhancements above provide a clear roadmap for scaling this from a demo into a real desktop automation agent.
