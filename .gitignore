@@ -15,17 +15,8 @@ env/
 # Environment variables (NEVER commit your real keys)
 .env
 
-# Screenshots (generated at runtime)
-screenshots/
-*.png
-!screenshots/.gitkeep
+# Screenshots, Output posts, and Logs are now allowed to be committed
 
-# Output posts (generated at runtime)
-output/
-
-# Logs
-*.log
-logs/
 
 # IDE
 .vscode/

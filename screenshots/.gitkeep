@@ -1,0 +1,5 @@
+# Annotated screenshots are generated at runtime by running the automation.
+# Three screenshots are required as deliverables:
+#   - icon_topleft.png     — icon detected in top-left area
+#   - icon_center.png      — icon detected in center of screen
+#   - icon_bottomright.png — icon detected in bottom-right area
