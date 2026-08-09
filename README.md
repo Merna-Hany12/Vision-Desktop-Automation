@@ -21,7 +21,9 @@ This works for **any icon described in natural language** — not just Notepad.
 
 ## Backend Architecture
 
-The system uses a **resilient multi-backend strategy** with automatic failover:
+The system is configured out of the box to use **Google Gemini** as the primary engine for ease of setup, but features a built-in **resilient multi-backend strategy** if configured to use Groq.
+
+When `PLANNER_BACKEND=groq` is set in `.env`, the system enables automatic failover:
 
 ```
 Primary: Groq (meta-llama/llama-4-scout, free, fast)
@@ -31,7 +33,7 @@ Fallback: SBG Gateway (qwen3-vl-235b-a22b, vision model)
 Final: Google Gemini (gemini-3.5-flash-lite)
 ```
 
-Three Groq API keys are used in round-robin rotation to maximize free tier throughput.
+(The system also supports round-robin rotation of multiple Groq API keys to maximize throughput.)
 
 ## Requirements
 

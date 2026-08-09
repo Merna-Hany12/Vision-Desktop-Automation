@@ -70,7 +70,7 @@ The system is organized into 5 independent components with clear interfaces:
 
 **Why this separation?**
 - Each component is independently testable
-- The grounder backend is swappable (Gemini / Ollama / OS-Atlas) without touching the orchestrator
+- The grounder backend is swappable (Gemini / Groq / SBG) without touching the orchestrator
 - The automation layer can be tested with mock coordinates
 
 ---

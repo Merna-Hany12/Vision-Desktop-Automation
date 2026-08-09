@@ -191,7 +191,7 @@ This is **prompt engineering for GUI domain knowledge** — it dramatically impr
 **Algorithm:**
 1. Encode the screenshot as base64 PNG
 2. Build a prompt with the target description (e.g., "Notepad icon")
-3. Send to Gemini 2.5 Flash (low temperature)
+3. Send to the configured Planner model (e.g., Gemini 3.5 Flash-Lite)
 4. Parse the JSON response into `CandidateRegion` objects
 5. Sort by confidence (highest first)
 
@@ -222,13 +222,11 @@ The paper's insight: LLMs are good at spatial reasoning ("which region?") but ba
 
 | Backend | How It Works | Best For |
 |---|---|---|
-| `gemini` | Same Gemini API, different prompt focused on precision | CPU-only, 8GB RAM |
-| `ollama` | Qwen2.5-VL running locally via Ollama | Offline use, 16GB+ RAM |
-| `osatlas` | OS-Atlas-7B from HuggingFace (transformer model) | GPU with 8GB+ VRAM |
+| `gemini` | Same Gemini API, different prompt focused on precision | Out-of-the-box setup |
+| `groq` | Llama-4-Scout (Fast inference) | Free tier, high throughput |
+| `sbg` | Custom SBG Gateway (Qwen-VL) | Internal routing |
 
-**Graceful degradation:** If you set `GROUNDER_BACKEND=ollama` but Ollama isn't installed, the grounder automatically falls back to `gemini` with a warning log. The pipeline never crashes.
-
-**OS-Atlas coordinate format:** OS-Atlas outputs coordinates in a 0-1000 range (not 0.0-1.0). The parser (`_parse_osatlas_response`) handles this conversion. It also handles two output formats: `[[x1,y1,x2,y2]]` boxes and `(x, y)` center points.
+**Graceful degradation:** If you set `GROUNDER_BACKEND=groq` but the API rate limits you, the grounder automatically falls back to `sbg` and then to `gemini` with a warning log. The pipeline never crashes.
 
 ---
 
