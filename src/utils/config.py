@@ -44,9 +44,9 @@ def get_next_groq_key() -> str:
         return ""
     return next(_groq_key_cycle)
 
-# llama-4-scout is Groq's best free vision model (fast + multimodal)
-GROQ_PLANNER_MODEL: str = os.getenv("GROQ_PLANNER_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
-GROQ_GROUNDER_MODEL: str = os.getenv("GROQ_GROUNDER_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")
+# Qwen3.6 is Groq's fast vision model
+GROQ_PLANNER_MODEL: str = os.getenv("GROQ_PLANNER_MODEL", "qwen/qwen3.6-27b")
+GROQ_GROUNDER_MODEL: str = os.getenv("GROQ_GROUNDER_MODEL", "qwen/qwen3.6-27b")
 
 # ── ScreenSeekeR Parameters ───────────────────────────────────────────────────
 # Number of candidate regions the planner proposes (paper: 3-5 is optimal)

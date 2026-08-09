@@ -26,7 +26,7 @@ The system is configured out of the box to use **Google Gemini** as the primary 
 When `PLANNER_BACKEND=groq` is set in `.env`, the system enables automatic failover:
 
 ```
-Primary: Groq (meta-llama/llama-4-scout, free, fast)
+Primary: Groq (qwen/qwen3.6-27b, free, fast)
        ↓ (on rate limit or failure)
 Fallback: SBG Gateway (qwen3-vl-235b-a22b, vision model)
        ↓ (last resort)

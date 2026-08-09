@@ -223,7 +223,7 @@ The paper's insight: LLMs are good at spatial reasoning ("which region?") but ba
 | Backend | How It Works | Best For |
 |---|---|---|
 | `gemini` | Same Gemini API, different prompt focused on precision | Out-of-the-box setup |
-| `groq` | Llama-4-Scout (Fast inference) | Free tier, high throughput |
+| `groq` | Qwen3.6-27b (Fast inference) | Free tier, high throughput |
 | `sbg` | Custom SBG Gateway (Qwen-VL) | Internal routing |
 
 **Graceful degradation:** If you set `GROUNDER_BACKEND=groq` but the API rate limits you, the grounder automatically falls back to `sbg` and then to `gemini` with a warning log. The pipeline never crashes.
