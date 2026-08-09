@@ -270,6 +270,8 @@ Small bounding boxes are expanded by 20% around their center. This prevents edge
 ```
 ground("Notepad icon", screenshot, depth=0)
 │
+├── Stage 0: Positional Memory Cache (Fast Path Verification)
+│
 ├── Stage 1: planner.infer_positions() → 3 CandidateRegions
 │
 ├── Stage 2: For each candidate:

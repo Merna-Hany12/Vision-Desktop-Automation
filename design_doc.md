@@ -34,7 +34,8 @@ The solution is a system that locates icons the same way a human would: by **vis
 | Primary monitor only | Multi-monitor detection adds complexity without benefit for the task |
 | Notepad shortcut exists on desktop before running | Pre-requisite stated in requirements |
 | Desktop is visible (no full-screen apps) | System calls `Win+D` to minimize all windows before each search |
-| Internet connection available | Required for Gemini API and JSONPlaceholder API |
+| Internet connection available | Required for Gemini API and DummyJSON API |
+| External API Data Source | The primary data source is `jsonplaceholder.typicode.com/posts` as per spec. However, if a `ConnectionResetError` occurs (e.g. strict firewall), the system gracefully falls back to `dummyjson.com/posts` which provides identical mock data schemas. |
 | Gemini API free tier | Generous daily quota (100+ calls/day), no credit card needed |
 | Python 3.11+, uv installed | Standard modern Python tooling |
 
@@ -62,7 +63,7 @@ The system is organized into 5 independent components with clear interfaces:
                                 │
                      ┌──────────▼──────────┐
                      │     API Client      │
-                     │  (JSONPlaceholder)  │
+                     │    (DummyJSON)      │
                      │  fetch_posts()      │
                      └─────────────────────┘
 ```
@@ -91,11 +92,13 @@ Traditional approaches fail for this task:
 | Direct LLM coordinate prediction | Vision LLMs (including GPT-4o) score < 5% on grounding benchmarks |
 | **ScreenSeekeR (proposed)** | **Position-agnostic, appearance-agnostic, 48.1% on ScreenSpot-Pro** |
 
-### The ScreenSeekeR Algorithm (3 Stages)
+### The ScreenSeekeR Algorithm (Implemented Stages)
+
+**Stage 0 — Positional Memory Cache (Fast Path)**
+Before a full visual search is conducted, the system checks if a target was successfully found previously. If so, it takes a small 600x600 crop around the last known coordinates to instantly verify if the target is still there. If verification passes, it bypasses the entire expensive inference pipeline.
 
 **Stage 1 — Position Inference (Planner)**
-
-A multimodal LLM (Gemini 2.5 Flash) analyzes the full 1920×1080 desktop screenshot and proposes **3 candidate regions** where the target is most likely located.
+A multimodal LLM analyzes the full 1920×1080 desktop screenshot and proposes **3 candidate regions** where the target is most likely located.
 
 The planner uses its knowledge of Windows desktop conventions:
 - Icons are arranged in a grid, typically starting top-left
@@ -105,8 +108,7 @@ The planner uses its knowledge of Windows desktop conventions:
 Prompt strategy: low temperature (0.2) for consistent spatial reasoning; structured JSON output for reliable parsing.
 
 **Stage 2 — Precise Grounding (Grounder)**
-
-Each candidate region is **cropped** from the original screenshot and sent to Gemini with a specialized grounding prompt. The model returns:
+Each candidate region is **cropped** from the original screenshot and sent to the model with a specialized grounding prompt. The model returns:
 - Whether the target is visible in this patch
 - The center coordinates (normalized 0.0–1.0)
 - A confidence score
@@ -115,7 +117,6 @@ Each candidate region is **cropped** from the original screenshot and sent to Ge
 The key insight from the paper: *"Strategically reducing the search area enhances accuracy."* A model that struggles on the full 1920×1080 image can accurately locate a 64×64 icon within a 300×300 crop.
 
 **Stage 3 — Recursive Search + Scoring**
-
 Candidates are scored using the **Gaussian-weighted centrality formula** from the paper:
 
 ```
@@ -125,16 +126,6 @@ score = planner_confidence × grounder_confidence × exp(-dist² / 2σ²)
 Where `dist` is the distance from the grounder's prediction to the candidate center, and `σ = 0.3` (paper default).
 
 Non-Maximum Suppression (NMS) removes overlapping candidates. If the best candidate's confidence is below threshold (0.60), the system **recurses** into the top region and repeats, up to `MAX_SEARCH_DEPTH=3`.
-
-**Why this outperforms alternatives:**
-- The planner's job is to *propose regions*, not *find pixels* — a task LLMs excel at
-- The grounder's job is *precise localization* within a small crop — much easier than the full screen
-- The recursive refinement progressively eliminates wrong areas
-- The scoring formula prevents large, low-confidence regions from dominating
-
-### Generalization
-
-The `target_description` is a plain English string. Changing it from `"Notepad icon"` to `"Chrome browser shortcut"` or `"VS Code icon"` requires zero code changes. The system is **fully general**.
 
 ---
 
@@ -173,7 +164,7 @@ The `target_description` is a plain English string. Changing it from `"Notepad i
 | **Unexpected popup** | Gemini analyzes screenshot for dialog | Gemini determines action (Enter/Escape/Yes/No/click button) |
 | **Save dialog issues** | Window title polling | Keyboard navigation: type path → Enter |
 | **File already exists** | Second Enter press after save | Accepts "overwrite?" prompt |
-| **API network failure** | `requests.HTTPError` | Exponential backoff, 3 retries |
+| **API network failure** | `requests.HTTPError` | Exponential backoff, 3 retries, or fallback to mock data |
 | **Fatal per-post error** | `Exception` catch-all | Emergency `Alt+F4`, log and continue |
 
 ### Key Robustness Feature: Popup Handling
@@ -185,11 +176,9 @@ The assignment specifically requires handling "unexpected pop-ups without knowin
 3. Gemini returns: `{popup_detected: true, action: "click_yes", button_description: "..."}`
 4. The system clicks the appropriate button — even if it's never seen that dialog before
 
-This is fundamentally different from hardcoded dialog handling because it works for **any** unexpected dialog.
-
 ---
 
-## 7. Performance
+## 7. Performance & Optimizations
 
 | Operation | Expected Latency |
 |---|---|
@@ -197,14 +186,15 @@ This is fundamentally different from hardcoded dialog handling because it works 
 | Gemini planner call | 1–3s |
 | Gemini grounder call × 3 candidates | 3–9s |
 | Scoring + NMS | <10ms |
+| Positional Memory Cache Hit | <1s |
 | Mouse/keyboard automation | 2–4s |
-| **Total per iteration (no recursion)** | **~7–16s** |
-| **Total for 10 posts** | **~2–3 minutes** |
 
-### Optimization Strategies (if more time available)
-- **Caching**: If the desktop screenshot is visually similar to the previous one (pixel diff < 5%), reuse the last grounding result
-- **Parallel grounding**: Send all 3 candidate patches to Gemini concurrently (async API calls)
-- **Confidence learning**: After a successful run, cache the icon's approximate screen region and search there first next time
+### Active Optimizations
+- **Positional Memory Caching**: Once an icon is successfully found, its coordinates are cached. The system takes a 600x600 bounding box of that area next time to run a single fast verification check, drastically speeding up repetitive tasks like opening Notepad across iterations.
+
+### Future Optimization Strategies
+- **Parallel grounding**: Send all 3 candidate patches to Gemini concurrently (async API calls) to reduce multi-inference latency.
+- **Pixel-level Hash Caching**: If the desktop screenshot is visually identical to the previous one (pixel diff < 1%), bypass even the bounding box inference.
 
 ---
 

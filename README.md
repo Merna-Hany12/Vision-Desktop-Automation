@@ -28,7 +28,7 @@ Primary: Groq (meta-llama/llama-4-scout, free, fast)
        ↓ (on rate limit or failure)
 Fallback: SBG Gateway (qwen3-vl-235b-a22b, vision model)
        ↓ (last resort)
-Final: Google Gemini (gemini-2.0-flash)
+Final: Google Gemini (gemini-3.5-flash-lite)
 ```
 
 Three Groq API keys are used in round-robin rotation to maximize free tier throughput.
@@ -84,14 +84,14 @@ The script will:
 2. Find the Notepad icon using ScreenSeekeR (regardless of position)
 3. Double-click it to launch Notepad
 4. Type 10 blog posts from JSONPlaceholder API
-5. Save each as `post_{id}.txt` in `output\`
+5. Save each as `post_{id}.txt` in `Desktop\tjm-project\`
 
 ## Output
 
-Posts are saved to: `output\` in the repository root (or the directory set by `OUTPUT_DIR`).
+Posts are saved to: `Desktop\tjm-project\` as per the assignment spec.
 
 ```
-output/
+Desktop/tjm-project/
 ├── post_1.txt
 ├── post_2.txt
 ├── ...
@@ -171,6 +171,7 @@ Based on the **ScreenSeekeR** framework from [ScreenSpot-Pro (arXiv 2504.07981)]
 
 The system handles:
 - **Grounding failure** → Retry up to 3 times with fresh screenshot
+- **API Network Block** → Tries `jsonplaceholder.typicode.com`, automatically falls back to `dummyjson.com` if a `ConnectionResetError` occurs.
 - **API rate limits** → Automatic key rotation (3 Groq keys) + fallback to SBG/Gemini
 - **Notepad won't open** → Retry double-click, check for blocking popups
 - **Unexpected popup** → Vision LLM detects and dismisses ANY dialog automatically
