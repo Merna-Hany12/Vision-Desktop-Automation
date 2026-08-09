@@ -93,7 +93,7 @@ API_TIMEOUT: int = 15  # seconds
 _output_env = os.getenv("OUTPUT_DIR", "")
 OUTPUT_DIR: Path = (
     Path(_output_env) if _output_env
-    else Path(__file__).parent.parent.parent / "output"
+    else Path.home() / "Desktop" / "tjm-project"
 )
 
 # Screenshots directory (for annotated deliverables)

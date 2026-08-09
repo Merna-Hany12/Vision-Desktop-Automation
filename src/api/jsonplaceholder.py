@@ -40,19 +40,29 @@ def fetch_posts(limit: int = 10) -> list[dict]:
         response = requests.get(url, params=params, headers=headers, timeout=API_TIMEOUT)
         response.raise_for_status()
         posts = response.json()
-        logger.info(f"Fetched {len(posts)} posts successfully from API")
+        logger.info(f"Fetched {len(posts)} posts successfully from JSONPlaceholder API")
         return posts
     except requests.exceptions.RequestException as e:
-        logger.error(f"API failed ({e}). Returning fallback mock data so automation can proceed.")
-        # Return fallback data
-        return [
-            {
-                "id": i + 1,
-                "title": f"Fallback Mock Post {i + 1}",
-                "body": f"This is some mock content for post {i + 1} because the network API request failed. The automation will type this out anyway!"
-            }
-            for i in range(limit)
-        ]
+        logger.warning(f"JSONPlaceholder API failed ({e}). Attempting fallback to DummyJSON...")
+        try:
+            fallback_url = "https://dummyjson.com/posts"
+            fallback_params = {"limit": limit}
+            fallback_response = requests.get(fallback_url, params=fallback_params, headers=headers, timeout=API_TIMEOUT)
+            fallback_response.raise_for_status()
+            posts = fallback_response.json().get("posts", [])
+            logger.info(f"Fetched {len(posts)} posts successfully from DummyJSON Fallback")
+            return posts
+        except requests.exceptions.RequestException as fallback_e:
+            logger.error(f"Fallback API also failed ({fallback_e}). Returning mock data.")
+            # Return fallback data
+            return [
+                {
+                    "id": i + 1,
+                    "title": f"Fallback Mock Post {i + 1}",
+                    "body": f"This is some mock content for post {i + 1} because the network API requests failed. The automation will type this out anyway!"
+                }
+                for i in range(limit)
+            ]
 
 
 def format_post(post: dict) -> str:

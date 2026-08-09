@@ -1,3 +1,3 @@
-Title: Fallback Mock Post 2
+Title: He was an expert but not in a discipline
 
-This is some mock content for post 2 because the network API request failed. The automation will type this out anyway!
+He was an expert but not in a discipline that anyone could fully appreciate. He knew how to hold the cone just right so that the soft server ice-cream fell into it at the precise angle to form a perfect cone each and every time. It had taken years to perfect and he could now do it without even putting any thought behind it.

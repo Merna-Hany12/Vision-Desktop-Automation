@@ -1,0 +1,746 @@
+2026-08-09 09:20:25.554 | INFO     | src.api.jsonplaceholder:34 — Fetching 2 posts from https://dummyjson.com/posts
+2026-08-09 09:20:25.912 | INFO     | src.api.jsonplaceholder:43 — Fetched 2 posts successfully from API
+2026-08-09 09:33:04.632 | INFO     | __main__:65 — ============================================================
+2026-08-09 09:33:04.633 | INFO     | __main__:66 — Vision-Based Desktop Automation — ScreenSeekeR
+2026-08-09 09:33:04.634 | INFO     | __main__:67 — ============================================================
+2026-08-09 09:33:04.634 | INFO     | __main__:78 — Output directory: C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:33:04.635 | INFO     | __main__:81 — Fetching posts from JSONPlaceholder API...
+2026-08-09 09:33:04.635 | INFO     | src.api.jsonplaceholder:34 — Fetching 10 posts from https://jsonplaceholder.typicode.com/posts
+2026-08-09 09:33:04.782 | WARNING  | src.api.jsonplaceholder:46 — JSONPlaceholder API failed (('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))). Attempting fallback to DummyJSON...
+2026-08-09 09:33:05.206 | INFO     | src.api.jsonplaceholder:53 — Fetched 10 posts successfully from DummyJSON Fallback
+2026-08-09 09:33:05.206 | INFO     | __main__:88 — Ready to process 10 posts
+2026-08-09 09:33:05.206 | INFO     | src.grounding.planner:55 — Planner backend: gemini
+2026-08-09 09:33:09.705 | INFO     | src.grounding.planner:78 — Planner initialized with Gemini model: gemini-3.5-flash-lite
+2026-08-09 09:33:09.706 | INFO     | src.grounding.grounder:64 — Grounder initialized with backend: gemini
+2026-08-09 09:33:09.742 | INFO     | src.grounding.screenseeker:75 — ScreenSeekeR pipeline initialized with Positional Memory
+2026-08-09 09:33:09.742 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:33:09.743 | INFO     | __main__:103 — Post 1/10 — id=1 — post_1.txt
+2026-08-09 09:33:09.743 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:33:09.743 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:33:09.844 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:33:13.468 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (313).png
+2026-08-09 09:33:13.655 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:33:20.144 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:33:21.046 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (314).png
+2026-08-09 09:33:21.189 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:33:21.189 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:33:21.189 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:33:21.190 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:33:21.190 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:33:26.384 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 14 column 6 (char 318). Attempting fallback.
+2026-08-09 09:33:26.385 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:33:26.414 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:33:26.423 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:33:26.424 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:33:29.796 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.177, "center_y": 0.380, "bbox": [0.138, 0.347, 0.217, 0.422], "reasoning": "The Notepad shortcut icon with the text 'notepad.exe' is clearly visible in the third row, second column."}
+2026-08-09 09:33:29.797 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.177,0.380)
+2026-08-09 09:33:29.798 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 1: found=True conf=1.00 center=(0.177,0.380)
+2026-08-09 09:33:29.798 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:33:29.801 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:33:29.801 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:33:33.166 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut icon is not present on the screen."}
+2026-08-09 09:33:33.166 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:33:33.167 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:33:33.170 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:33:33.170 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:33:35.485 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": null, "center_y": null, "bbox": null, "reasoning": "The Notepad shortcut is not present in the patch; only Microsoft Word, Microsoft Edge, and a text file are visible on the desktop."}
+2026-08-09 09:33:35.486 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:33:54.747 | INFO     | __main__:65 — ============================================================
+2026-08-09 09:33:54.747 | INFO     | __main__:66 — Vision-Based Desktop Automation — ScreenSeekeR
+2026-08-09 09:33:54.748 | INFO     | __main__:67 — ============================================================
+2026-08-09 09:33:54.748 | INFO     | __main__:78 — Output directory: C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:33:54.748 | INFO     | __main__:81 — Fetching posts from JSONPlaceholder API...
+2026-08-09 09:33:54.749 | INFO     | src.api.jsonplaceholder:34 — Fetching 10 posts from https://jsonplaceholder.typicode.com/posts
+2026-08-09 09:33:54.846 | WARNING  | src.api.jsonplaceholder:46 — JSONPlaceholder API failed (('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))). Attempting fallback to DummyJSON...
+2026-08-09 09:33:55.107 | INFO     | src.api.jsonplaceholder:53 — Fetched 10 posts successfully from DummyJSON Fallback
+2026-08-09 09:33:55.108 | INFO     | __main__:88 — Ready to process 10 posts
+2026-08-09 09:33:55.109 | INFO     | src.grounding.planner:55 — Planner backend: gemini
+2026-08-09 09:33:56.729 | INFO     | src.grounding.planner:78 — Planner initialized with Gemini model: gemini-3.5-flash-lite
+2026-08-09 09:33:56.729 | INFO     | src.grounding.grounder:64 — Grounder initialized with backend: gemini
+2026-08-09 09:33:56.764 | INFO     | src.grounding.screenseeker:75 — ScreenSeekeR pipeline initialized with Positional Memory
+2026-08-09 09:33:56.766 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:33:56.767 | INFO     | __main__:103 — Post 1/10 — id=1 — post_1.txt
+2026-08-09 09:33:56.768 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:33:56.768 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:33:56.869 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:34:00.275 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (315).png
+2026-08-09 09:34:00.420 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:34:03.431 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:34:04.295 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (316).png
+2026-08-09 09:34:04.477 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:34:04.486 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:34:04.497 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:34:04.504 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:34:04.507 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:34:09.592 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 1 column 243 (char 242). Attempting fallback.
+2026-08-09 09:34:09.592 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:34:09.601 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:34:09.604 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:34:09.604 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:34:12.688 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.052, "center_y": 0.038, "bbox": [0.016, 0.005, 0.088, 0.071], "reasoning": "The desktop shortcut for Windows Notepad, labeled 'notepad.exe', is located in the top-left area of the patch."}
+2026-08-09 09:34:12.688 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.052,0.038)
+2026-08-09 09:34:12.688 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 1: found=True conf=1.00 center=(0.052,0.038)
+2026-08-09 09:34:12.689 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:34:12.691 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:34:12.691 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:34:15.817 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0, 0, 0, 0], "reasoning": "The Windows Notepad desktop shortcut is not visible anywhere in the provided image patch."}
+2026-08-09 09:34:15.817 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:34:15.818 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:34:15.821 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:34:15.822 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:34:18.337 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present in this cropped image patch; visible shortcuts are for Microsoft Edge, a text file, a Word document, and various taskbar items."}
+2026-08-09 09:34:18.338 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:34:18.340 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 1 candidates:
+2026-08-09 09:34:18.340 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.900 center=(0.021,0.038)
+2026-08-09 09:34:18.340 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 1 → 1 candidates after suppression
+2026-08-09 09:34:18.340 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.900 conf=1.00 center=(0.021,0.038)
+2026-08-09 09:34:18.341 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(41,41) confidence=1.00
+2026-08-09 09:34:18.343 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(41,41) confidence=100% depth=0
+2026-08-09 09:34:18.511 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_topleft.png; saving new capture as icon_topleft_01.png
+2026-08-09 09:34:18.571 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_topleft_01.png
+2026-08-09 09:34:18.572 | INFO     | __main__:156 — Double-clicking Notepad icon at (41, 41)
+2026-08-09 09:34:18.572 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (41, 41)
+2026-08-09 09:34:19.755 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:34:21.467 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:34:21.467 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:34:22.687 | INFO     | __main__:180 — Typing post content (330 chars)...
+2026-08-09 09:34:22.688 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 330 characters
+2026-08-09 09:34:23.853 | INFO     | __main__:185 — Saving as post_1.txt...
+2026-08-09 09:34:23.853 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_1.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:34:29.100 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_1.txt
+2026-08-09 09:34:29.100 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:34:29.100 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:34:32.045 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:34:32.087 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:34:32.696 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:34:33.401 | INFO     | __main__:200 — ✅ Post 1 completed successfully → post_1.txt
+2026-08-09 09:34:33.402 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:34:33.403 | INFO     | __main__:103 — Post 2/10 — id=2 — post_2.txt
+2026-08-09 09:34:33.404 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:34:33.404 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:34:33.505 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:36:18.166 | INFO     | __main__:65 — ============================================================
+2026-08-09 09:36:18.167 | INFO     | __main__:66 — Vision-Based Desktop Automation — ScreenSeekeR
+2026-08-09 09:36:18.167 | INFO     | __main__:67 — ============================================================
+2026-08-09 09:36:18.168 | INFO     | __main__:78 — Output directory: C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:36:18.168 | INFO     | __main__:81 — Fetching posts from JSONPlaceholder API...
+2026-08-09 09:36:18.168 | INFO     | src.api.jsonplaceholder:34 — Fetching 10 posts from https://jsonplaceholder.typicode.com/posts
+2026-08-09 09:36:18.313 | WARNING  | src.api.jsonplaceholder:46 — JSONPlaceholder API failed (('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))). Attempting fallback to DummyJSON...
+2026-08-09 09:36:18.639 | INFO     | src.api.jsonplaceholder:53 — Fetched 10 posts successfully from DummyJSON Fallback
+2026-08-09 09:36:18.640 | INFO     | __main__:88 — Ready to process 10 posts
+2026-08-09 09:36:18.640 | INFO     | src.grounding.planner:55 — Planner backend: gemini
+2026-08-09 09:36:20.254 | INFO     | src.grounding.planner:78 — Planner initialized with Gemini model: gemini-3.5-flash-lite
+2026-08-09 09:36:20.254 | INFO     | src.grounding.grounder:64 — Grounder initialized with backend: gemini
+2026-08-09 09:36:20.291 | INFO     | src.grounding.screenseeker:75 — ScreenSeekeR pipeline initialized with Positional Memory
+2026-08-09 09:36:20.291 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:36:20.292 | INFO     | __main__:103 — Post 1/10 — id=1 — post_1.txt
+2026-08-09 09:36:20.292 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:36:20.292 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:36:20.393 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:36:23.964 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (318).png
+2026-08-09 09:36:24.107 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:36:27.479 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:36:28.471 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (319).png
+2026-08-09 09:36:28.606 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:36:28.607 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:36:28.607 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:36:28.607 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:36:28.608 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:36:33.705 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 14 column 6 (char 352). Attempting fallback.
+2026-08-09 09:36:33.705 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:36:33.709 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:36:33.711 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:36:33.711 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:36:36.872 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.045, "center_y": 0.038, "bbox": [0.016, 0.007, 0.076, 0.063], "reasoning": "The 'notepad.exe' shortcut with its blue notebook icon and label is located at the top-left area."}
+2026-08-09 09:36:36.873 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.045,0.038)
+2026-08-09 09:36:36.873 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 1: found=True conf=1.00 center=(0.045,0.038)
+2026-08-09 09:36:36.874 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:36:36.875 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:36:36.877 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:36:40.206 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present in this screenshot. The desktop contains various files, folders, Python scripts, CSV files, Word documents, and shortcuts like Chrome, Edge, Docker, and Bitdefender, but no Notepad icon."}
+2026-08-09 09:36:40.207 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:36:40.208 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:36:40.212 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:36:40.212 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:36:42.660 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present in the patch. The icons visible are Microsoft Edge, Word, a text file, and some taskbar icons."}
+2026-08-09 09:36:42.661 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:36:42.662 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 1 candidates:
+2026-08-09 09:36:42.663 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.900 center=(0.019,0.038)
+2026-08-09 09:36:42.664 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 1 → 1 candidates after suppression
+2026-08-09 09:36:42.665 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.900 conf=1.00 center=(0.019,0.038)
+2026-08-09 09:36:42.665 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(35,41) confidence=1.00
+2026-08-09 09:36:42.665 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(35,41) confidence=100% depth=0
+2026-08-09 09:36:42.764 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_topleft.png; saving new capture as icon_topleft_02.png
+2026-08-09 09:36:42.825 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_topleft_02.png
+2026-08-09 09:36:42.826 | INFO     | __main__:156 — Double-clicking Notepad icon at (35, 41)
+2026-08-09 09:36:42.826 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (35, 41)
+2026-08-09 09:36:43.999 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:36:44.809 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:36:44.810 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:36:46.031 | INFO     | __main__:180 — Typing post content (330 chars)...
+2026-08-09 09:36:46.032 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 330 characters
+2026-08-09 09:36:47.198 | INFO     | __main__:185 — Saving as post_1.txt...
+2026-08-09 09:36:47.198 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_1.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:36:52.436 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_1.txt
+2026-08-09 09:36:52.436 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:36:52.436 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:36:55.459 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:36:55.459 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:36:56.064 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:36:56.768 | INFO     | __main__:200 — ✅ Post 1 completed successfully → post_1.txt
+2026-08-09 09:36:56.768 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:36:56.768 | INFO     | __main__:103 — Post 2/10 — id=2 — post_2.txt
+2026-08-09 09:36:56.768 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:36:56.768 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:36:56.870 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:37:00.367 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (320).png
+2026-08-09 09:37:00.490 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:37:03.167 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:37:04.168 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (321).png
+2026-08-09 09:37:04.295 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:37:04.296 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:37:04.297 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:37:04.297 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:37:04.297 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 335x341 patch
+2026-08-09 09:37:04.298 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:37:05.774 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.138, "center_y": 0.144, "bbox": [0.007, 0.011, 0.269, 0.276], "reasoning": "The 'notepad.exe' shortcut with its distinctive blue notepad icon and text label is clearly visible in the top left corner of the image patch."}
+2026-08-09 09:37:05.775 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.138,0.144)
+2026-08-09 09:37:05.775 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (46, 49)
+2026-08-09 09:37:05.775 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(46,49) confidence=100% depth=0
+2026-08-09 09:37:05.796 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_center.png; saving new capture as icon_center_01.png
+2026-08-09 09:37:05.860 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_center_01.png
+2026-08-09 09:37:05.861 | INFO     | __main__:156 — Double-clicking Notepad icon at (46, 49)
+2026-08-09 09:37:05.861 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (46, 49)
+2026-08-09 09:37:07.029 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:37:07.473 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:37:07.474 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:37:08.680 | INFO     | __main__:180 — Typing post content (374 chars)...
+2026-08-09 09:37:08.680 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 374 characters
+2026-08-09 09:37:09.804 | INFO     | __main__:185 — Saving as post_2.txt...
+2026-08-09 09:37:09.804 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_2.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:37:15.044 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_2.txt
+2026-08-09 09:37:15.044 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:37:15.044 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:37:17.930 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:37:17.931 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:37:18.534 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:37:19.239 | INFO     | __main__:200 — ✅ Post 2 completed successfully → post_2.txt
+2026-08-09 09:37:19.239 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:37:19.239 | INFO     | __main__:103 — Post 3/10 — id=3 — post_3.txt
+2026-08-09 09:37:19.239 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:37:19.240 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:37:19.342 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:37:22.842 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (322).png
+2026-08-09 09:37:22.972 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:38:03.370 | INFO     | __main__:65 — ============================================================
+2026-08-09 09:38:03.370 | INFO     | __main__:66 — Vision-Based Desktop Automation — ScreenSeekeR
+2026-08-09 09:38:03.370 | INFO     | __main__:67 — ============================================================
+2026-08-09 09:38:03.371 | INFO     | __main__:78 — Output directory: C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:38:03.371 | INFO     | __main__:81 — Fetching posts from JSONPlaceholder API...
+2026-08-09 09:38:03.371 | INFO     | src.api.jsonplaceholder:34 — Fetching 10 posts from https://jsonplaceholder.typicode.com/posts
+2026-08-09 09:38:03.514 | WARNING  | src.api.jsonplaceholder:46 — JSONPlaceholder API failed (('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))). Attempting fallback to DummyJSON...
+2026-08-09 09:38:03.821 | INFO     | src.api.jsonplaceholder:53 — Fetched 10 posts successfully from DummyJSON Fallback
+2026-08-09 09:38:03.822 | INFO     | __main__:88 — Ready to process 10 posts
+2026-08-09 09:38:03.822 | INFO     | src.grounding.planner:55 — Planner backend: gemini
+2026-08-09 09:38:05.713 | INFO     | src.grounding.planner:78 — Planner initialized with Gemini model: gemini-3.5-flash-lite
+2026-08-09 09:38:05.713 | INFO     | src.grounding.grounder:64 — Grounder initialized with backend: gemini
+2026-08-09 09:38:05.744 | INFO     | src.grounding.screenseeker:75 — ScreenSeekeR pipeline initialized with Positional Memory
+2026-08-09 09:38:05.744 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:38:05.745 | INFO     | __main__:103 — Post 1/10 — id=1 — post_1.txt
+2026-08-09 09:38:05.745 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:38:05.745 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:38:05.846 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:38:09.225 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (323).png
+2026-08-09 09:38:09.409 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:38:12.005 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:38:12.964 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (324).png
+2026-08-09 09:38:13.097 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:38:13.098 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:38:13.098 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:38:13.098 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:38:13.099 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:38:18.193 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 1 column 287 (char 286). Attempting fallback.
+2026-08-09 09:38:18.194 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:38:18.200 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:38:18.204 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:38:18.205 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:38:21.418 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.052, "center_y": 0.038, "bbox": [0.016, 0.007, 0.088, 0.069], "reasoning": "The desktop shortcut for Windows Notepad (notepad.exe) is located in the top-left section of the screen, showing a blue notepad icon with the label 'notepad.exe'."}
+2026-08-09 09:38:21.419 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.052,0.038)
+2026-08-09 09:38:21.419 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 1: found=True conf=1.00 center=(0.052,0.038)
+2026-08-09 09:38:21.420 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:38:21.424 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:38:21.424 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:38:24.624 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present anywhere in this image patch."}
+2026-08-09 09:38:24.624 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:38:24.625 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:38:24.627 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:38:24.627 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:38:27.402 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.264, "center_y": 9.972, "bbox": [0.248, 0.957, 0.28, 0.988], "reasoning": "The Windows Notepad shortcut icon is visible on the taskbar at the bottom center-left, showing its distinctive blue notepad shape."}
+2026-08-09 09:38:27.403 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.264,1.000)
+2026-08-09 09:38:27.403 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 3: found=True conf=1.00 center=(0.264,1.000)
+2026-08-09 09:38:27.404 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 2 candidates:
+2026-08-09 09:38:27.405 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.900 center=(0.021,0.038)
+2026-08-09 09:38:27.405 | DEBUG    | src.grounding.candidate_scorer:96 —   [2] score=0.697 center=(0.687,1.000)
+2026-08-09 09:38:27.405 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 2 → 2 candidates after suppression
+2026-08-09 09:38:27.405 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.900 conf=1.00 center=(0.021,0.038)
+2026-08-09 09:38:27.405 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(41,41) confidence=1.00
+2026-08-09 09:38:27.406 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(41,41) confidence=100% depth=0
+2026-08-09 09:38:27.456 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_topleft.png; saving new capture as icon_topleft_03.png
+2026-08-09 09:38:27.531 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_topleft_03.png
+2026-08-09 09:38:27.532 | INFO     | __main__:156 — Double-clicking Notepad icon at (41, 41)
+2026-08-09 09:38:27.532 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (41, 41)
+2026-08-09 09:38:28.707 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:38:29.265 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:38:29.265 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:38:30.475 | INFO     | __main__:180 — Typing post content (330 chars)...
+2026-08-09 09:38:30.476 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 330 characters
+2026-08-09 09:38:31.635 | INFO     | __main__:185 — Saving as post_1.txt...
+2026-08-09 09:38:31.637 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_1.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:38:36.867 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_1.txt
+2026-08-09 09:38:36.867 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:38:36.867 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:38:39.829 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:38:39.829 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:38:40.434 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:38:41.138 | INFO     | __main__:200 — ✅ Post 1 completed successfully → post_1.txt
+2026-08-09 09:38:41.138 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:38:41.138 | INFO     | __main__:103 — Post 2/10 — id=2 — post_2.txt
+2026-08-09 09:38:41.138 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:38:41.139 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:38:41.240 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:38:44.623 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (325).png
+2026-08-09 09:38:44.760 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:38:47.701 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:38:48.680 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (326).png
+2026-08-09 09:38:48.808 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:38:48.810 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:38:48.810 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:38:48.810 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:38:48.811 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 341x341 patch
+2026-08-09 09:38:48.811 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:38:50.205 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": null, "center_y": null, "bbox": null, "reasoning": "The Windows Notepad desktop shortcut is not visible in the provided image patch; the patch only contains folders, Legion Game Shop, Zoom, MongoDB, and MobaXterm shortcuts."}
+2026-08-09 09:38:50.206 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:38:50.206 | WARNING  | src.grounding.screenseeker:116 — Cache verification failed. Target moved. Falling back to full search.
+2026-08-09 09:38:50.206 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:38:50.206 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:38:55.187 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 1 column 256 (char 255). Attempting fallback.
+2026-08-09 09:38:55.188 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:38:55.189 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:38:55.192 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:38:55.193 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:38:58.281 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0, 0, 0, 0], "reasoning": "The desktop shortcut for Windows Notepad is not present in the provided image patch."}
+2026-08-09 09:38:58.282 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:38:58.283 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:38:58.286 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:38:58.286 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:01.847 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 0.95, "center_x": 0.457, "center_y": 0.380, "bbox": [0.407, 0.347, 0.485, 0.428], "reasoning": "The desktop shortcut with the Notepad icon and label 'notepad.exe' is clearly visible in the middle section of the screen."}
+2026-08-09 09:39:01.847 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=0.95 center=(0.457,0.380)
+2026-08-09 09:39:01.849 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 2: found=True conf=0.95 center=(0.457,0.380)
+2026-08-09 09:39:01.850 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:39:01.853 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:39:01.853 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:04.322 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.264, "center_y": 969, "bbox": [0.245, 0.949, 0.283, 0.99], "reasoning": "The Notepad icon is clearly visible on the taskbar at the bottom left area (blue notebook icon with horizontal lines, matching description)."}
+2026-08-09 09:39:04.323 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.264,1.000)
+2026-08-09 09:39:04.323 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 3: found=True conf=1.00 center=(0.264,1.000)
+2026-08-09 09:39:04.325 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 2 candidates:
+2026-08-09 09:39:04.325 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.760 center=(0.474,0.380)
+2026-08-09 09:39:04.326 | DEBUG    | src.grounding.candidate_scorer:96 —   [2] score=0.696 center=(0.687,1.000)
+2026-08-09 09:39:04.326 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 2 → 2 candidates after suppression
+2026-08-09 09:39:04.326 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.760 conf=0.95 center=(0.474,0.380)
+2026-08-09 09:39:04.327 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(909,410) confidence=0.95
+2026-08-09 09:39:04.327 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(909,410) confidence=95% depth=0
+2026-08-09 09:39:04.350 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_center.png; saving new capture as icon_center_02.png
+2026-08-09 09:39:04.443 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_center_02.png
+2026-08-09 09:39:04.444 | INFO     | __main__:156 — Double-clicking Notepad icon at (909, 410)
+2026-08-09 09:39:04.444 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (909, 410)
+2026-08-09 09:39:05.623 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:39:06.043 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:39:06.043 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:39:07.257 | INFO     | __main__:180 — Typing post content (374 chars)...
+2026-08-09 09:39:07.258 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 374 characters
+2026-08-09 09:39:08.376 | INFO     | __main__:185 — Saving as post_2.txt...
+2026-08-09 09:39:08.376 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_2.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:39:13.620 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_2.txt
+2026-08-09 09:39:13.620 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:39:13.620 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:39:16.571 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:39:16.571 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:39:17.175 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:39:17.879 | INFO     | __main__:200 — ✅ Post 2 completed successfully → post_2.txt
+2026-08-09 09:39:17.879 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:39:17.879 | INFO     | __main__:103 — Post 3/10 — id=3 — post_3.txt
+2026-08-09 09:39:17.880 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:39:17.880 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:39:17.981 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:39:21.381 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (327).png
+2026-08-09 09:39:21.490 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:39:25.710 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:39:26.687 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (328).png
+2026-08-09 09:39:26.815 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:39:26.816 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:39:26.816 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:39:26.816 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:39:26.817 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 600x600 patch
+2026-08-09 09:39:26.817 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:29.105 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0, 0, 0, 0], "reasoning": "The Windows Notepad desktop shortcut is not visible in the provided patch."}
+2026-08-09 09:39:29.106 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:39:29.107 | WARNING  | src.grounding.screenseeker:116 — Cache verification failed. Target moved. Falling back to full search.
+2026-08-09 09:39:29.107 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:39:29.108 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:39:34.491 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 1 column 250 (char 249). Attempting fallback.
+2026-08-09 09:39:34.491 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:39:34.493 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:39:34.496 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:39:34.496 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:37.238 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Notepad shortcut is not visible on the desktop screenshot provided."}
+2026-08-09 09:39:37.239 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:39:37.240 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:39:37.243 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:39:37.244 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:40.573 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present in this patch (only Word, Python, text files, and other shortcuts are visible)."}
+2026-08-09 09:39:40.574 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:39:40.575 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:39:40.578 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:39:40.579 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:39:43.102 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.908, "center_y": 0.825, "bbox": [0.875, 0.796, 0.945, 0.867], "reasoning": "The Notepad desktop shortcut with icon and 'notepad.exe' label is clearly visible at the bottom right."}
+2026-08-09 09:39:43.103 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.908,0.825)
+2026-08-09 09:39:43.103 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 3: found=True conf=1.00 center=(0.908,0.825)
+2026-08-09 09:39:43.103 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 1 candidates:
+2026-08-09 09:39:43.104 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.700 center=(0.961,0.825)
+2026-08-09 09:39:43.104 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 1 → 1 candidates after suppression
+2026-08-09 09:39:43.104 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.700 conf=1.00 center=(0.961,0.825)
+2026-08-09 09:39:43.104 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(1844,891) confidence=1.00
+2026-08-09 09:39:43.104 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1844,891) confidence=100% depth=0
+2026-08-09 09:39:43.118 | WARNING  | src.utils.annotator:128 — Preserving existing screenshot icon_bottomright.png; saving new capture as icon_bottomright_01.png
+2026-08-09 09:39:43.183 | INFO     | src.utils.annotator:109 — Annotated screenshot saved: C:\Users\merna\Desktop\New folder (7)\screenshots\icon_bottomright_01.png
+2026-08-09 09:39:43.184 | INFO     | __main__:156 — Double-clicking Notepad icon at (1844, 891)
+2026-08-09 09:39:43.184 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1844, 891)
+2026-08-09 09:39:44.356 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:39:44.793 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:39:44.793 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:39:46.006 | INFO     | __main__:180 — Typing post content (566 chars)...
+2026-08-09 09:39:46.007 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 566 characters
+2026-08-09 09:39:47.124 | INFO     | __main__:185 — Saving as post_3.txt...
+2026-08-09 09:39:47.124 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_3.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:39:52.366 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_3.txt
+2026-08-09 09:39:52.366 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:39:52.366 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:39:55.234 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:39:55.235 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:39:55.838 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:39:56.541 | INFO     | __main__:200 — ✅ Post 3 completed successfully → post_3.txt
+2026-08-09 09:39:56.541 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:39:56.541 | INFO     | __main__:103 — Post 4/10 — id=4 — post_4.txt
+2026-08-09 09:39:56.541 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:39:56.541 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:39:56.642 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:40:00.078 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (329).png
+2026-08-09 09:40:00.205 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:05.728 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:40:06.614 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (330).png
+2026-08-09 09:40:06.738 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:06.739 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:40:06.740 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:40:06.740 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:40:06.741 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 376x489 patch
+2026-08-09 09:40:06.741 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:40:08.416 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.812, "center_y": 0.638, "bbox": [0.693, 0.559, 0.931, 0.727], "reasoning": "The Notepad desktop shortcut with the visible label 'notepad.exe' and the iconic blue notepad icon is clearly visible on the lower right of the image patch."}
+2026-08-09 09:40:08.417 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.812,0.638)
+2026-08-09 09:40:08.418 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1849, 902)
+2026-08-09 09:40:08.418 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1849,902) confidence=100% depth=0
+2026-08-09 09:40:08.418 | INFO     | __main__:156 — Double-clicking Notepad icon at (1849, 902)
+2026-08-09 09:40:08.419 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1849, 902)
+2026-08-09 09:40:09.619 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:40:09.995 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:40:09.995 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:40:11.219 | INFO     | __main__:180 — Typing post content (268 chars)...
+2026-08-09 09:40:11.219 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 268 characters
+2026-08-09 09:40:12.338 | INFO     | __main__:185 — Saving as post_4.txt...
+2026-08-09 09:40:12.338 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_4.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:40:17.581 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_4.txt
+2026-08-09 09:40:17.581 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:40:17.582 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:40:20.457 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:40:20.458 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:40:21.061 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:40:21.764 | INFO     | __main__:200 — ✅ Post 4 completed successfully → post_4.txt
+2026-08-09 09:40:21.764 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:40:21.764 | INFO     | __main__:103 — Post 5/10 — id=5 — post_5.txt
+2026-08-09 09:40:21.764 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:40:21.764 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:40:21.865 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:40:25.251 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (331).png
+2026-08-09 09:40:25.378 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:29.165 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:40:30.183 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (332).png
+2026-08-09 09:40:30.312 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:30.313 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:40:30.314 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:40:30.314 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:40:30.314 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 371x478 patch
+2026-08-09 09:40:30.314 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:40:31.881 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.812, "center_y": 0.615, "bbox": [0.687, 0.521, 0.938, 0.722], "reasoning": "The desktop shortcut for notepad.exe with the characteristic blue notepad icon is clearly visible in the bottom right area of the patch."}
+2026-08-09 09:40:31.882 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.812,0.615)
+2026-08-09 09:40:31.882 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1850, 895)
+2026-08-09 09:40:31.883 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1850,895) confidence=100% depth=0
+2026-08-09 09:40:31.883 | INFO     | __main__:156 — Double-clicking Notepad icon at (1850, 895)
+2026-08-09 09:40:31.884 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1850, 895)
+2026-08-09 09:40:33.069 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:40:33.452 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:40:33.454 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:40:34.669 | INFO     | __main__:180 — Typing post content (407 chars)...
+2026-08-09 09:40:34.669 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 407 characters
+2026-08-09 09:40:35.787 | INFO     | __main__:185 — Saving as post_5.txt...
+2026-08-09 09:40:35.787 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_5.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:40:41.020 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_5.txt
+2026-08-09 09:40:41.021 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:40:41.021 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:40:43.885 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:40:43.886 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:40:44.489 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:40:45.193 | INFO     | __main__:200 — ✅ Post 5 completed successfully → post_5.txt
+2026-08-09 09:40:45.193 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:40:45.193 | INFO     | __main__:103 — Post 6/10 — id=6 — post_6.txt
+2026-08-09 09:40:45.193 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:40:45.193 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:40:45.295 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:40:48.704 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (333).png
+2026-08-09 09:40:48.814 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:52.149 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:40:53.134 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (334).png
+2026-08-09 09:40:53.257 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:40:53.259 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:40:53.259 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:40:53.259 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:40:53.260 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 370x485 patch
+2026-08-09 09:40:53.260 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:40:55.191 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.812, "center_y": 0.627, "bbox": [0.686, 0.542, 0.938, 0.728], "reasoning": "The desktop shortcut for Notepad with the recognizable notepad icon and 'notepad.exe' label is clearly visible on the right side."}
+2026-08-09 09:40:55.192 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.812,0.627)
+2026-08-09 09:40:55.193 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1850, 899)
+2026-08-09 09:40:55.193 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1850,899) confidence=100% depth=0
+2026-08-09 09:40:55.194 | INFO     | __main__:156 — Double-clicking Notepad icon at (1850, 899)
+2026-08-09 09:40:55.194 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1850, 899)
+2026-08-09 09:40:56.368 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:40:56.780 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:40:56.780 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:40:58.001 | INFO     | __main__:180 — Typing post content (466 chars)...
+2026-08-09 09:40:58.001 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 466 characters
+2026-08-09 09:40:59.116 | INFO     | __main__:185 — Saving as post_6.txt...
+2026-08-09 09:40:59.116 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_6.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:41:04.358 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_6.txt
+2026-08-09 09:41:04.358 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:41:04.359 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:41:07.239 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:41:07.239 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:41:07.842 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:41:08.547 | INFO     | __main__:200 — ✅ Post 6 completed successfully → post_6.txt
+2026-08-09 09:41:08.547 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:41:08.548 | INFO     | __main__:103 — Post 7/10 — id=7 — post_7.txt
+2026-08-09 09:41:08.548 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:41:08.549 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:41:08.650 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:41:11.929 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (335).png
+2026-08-09 09:41:12.059 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:41:14.920 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:41:15.801 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (336).png
+2026-08-09 09:41:15.928 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:41:15.930 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:41:15.930 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:41:15.930 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:41:15.931 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 370x481 patch
+2026-08-09 09:41:15.931 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:41:17.611 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.809, "center_y": 0.627, "bbox": [0.687, 0.534, 0.931, 0.722], "reasoning": "The desktop shortcut for Notepad with the notepad.exe label and blue notebook icon is clearly visible at the bottom right of the patch."}
+2026-08-09 09:41:17.612 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.809,0.627)
+2026-08-09 09:41:17.612 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1849, 900)
+2026-08-09 09:41:17.613 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1849,900) confidence=100% depth=0
+2026-08-09 09:41:17.613 | INFO     | __main__:156 — Double-clicking Notepad icon at (1849, 900)
+2026-08-09 09:41:17.614 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1849, 900)
+2026-08-09 09:41:18.782 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:41:19.147 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:41:19.148 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:41:20.367 | INFO     | __main__:180 — Typing post content (343 chars)...
+2026-08-09 09:41:20.367 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 343 characters
+2026-08-09 09:41:21.477 | INFO     | __main__:185 — Saving as post_7.txt...
+2026-08-09 09:41:21.477 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_7.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:41:26.717 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_7.txt
+2026-08-09 09:41:26.718 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:41:26.718 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:41:29.596 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:41:29.596 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:41:30.200 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:41:30.903 | INFO     | __main__:200 — ✅ Post 7 completed successfully → post_7.txt
+2026-08-09 09:41:30.903 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:41:30.904 | INFO     | __main__:103 — Post 8/10 — id=8 — post_8.txt
+2026-08-09 09:41:30.904 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:41:30.905 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:41:31.006 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:41:34.378 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (337).png
+2026-08-09 09:41:34.503 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:41:36.826 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:41:37.829 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (338).png
+2026-08-09 09:41:37.965 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:41:37.966 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:41:37.966 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:41:37.967 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:41:37.967 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 371x480 patch
+2026-08-09 09:41:37.968 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:41:39.512 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.812, "center_y": 634.0 / 723.0, "bbox": [0.730, 0.542, 0.895, 0.723], "reasoning": "The desktop shortcut for notepad.exe with its characteristic notepad icon and label is clearly visible on the lower right."}
+2026-08-09 09:41:39.513 | WARNING  | src.grounding.grounder:355 — Grounder JSON parse error: Expecting ',' delimiter: line 1 column 73 (char 72). Attempting regex fallback...
+2026-08-09 09:41:39.515 | WARNING  | src.grounding.screenseeker:116 — Cache verification failed. Target moved. Falling back to full search.
+2026-08-09 09:41:39.515 | INFO     | src.grounding.planner:115 — Planner: inferring positions for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:41:39.515 | INFO     | src.grounding.planner:144 — Calling Planner backend: gemini...
+2026-08-09 09:41:44.591 | WARNING  | src.grounding.planner:331 — Planner parse error: Expecting ',' delimiter: line 1 column 285 (char 284). Attempting fallback.
+2026-08-09 09:41:44.591 | WARNING  | src.grounding.planner:341 — Using fallback grid search regions (target not found by Planner)
+2026-08-09 09:41:44.592 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 1/3: [0.0, 0.0, 0.33, 1.0]
+2026-08-09 09:41:44.593 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 792x1080 patch
+2026-08-09 09:41:44.593 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:41:47.492 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0.0, 0.0, 0.0, 0.0], "reasoning": "The Windows Notepad desktop shortcut is not present in this screenshot. The desktop icons shown are folders, PDF documents, python scripts, and various application shortcuts (Zoom, PyCharm, VS Code, Chrome, etc.), but Notepad is missing."}
+2026-08-09 09:41:47.493 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:41:47.493 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 2/3: [0.33, 0.0, 0.66, 1.0]
+2026-08-09 09:41:47.495 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 950x1080 patch
+2026-08-09 09:41:47.495 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:41:50.767 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": false, "confidence": 0.0, "center_x": 0.0, "center_y": 0.0, "bbox": [0, 0, 0, 0], "reasoning": "The Windows Notepad desktop shortcut icon is not present anywhere in this cropped desktop view patch."}
+2026-08-09 09:41:50.768 | DEBUG    | src.grounding.grounder:328 — Grounder: element not found in this patch
+2026-08-09 09:41:50.768 | DEBUG    | src.grounding.screenseeker:130 —   Grounding candidate 3/3: [0.66, 0.0, 1.0, 1.0]
+2026-08-09 09:41:50.771 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 816x1080 patch
+2026-08-09 09:41:50.771 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:41:53.225 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.906, "center_y": 0.835, "bbox": [0.857, 0.795, 0.955, 0.876], "reasoning": "The desktop shortcut for Notepad is visible at the bottom right corner with the label 'notepad.exe'."}
+2026-08-09 09:41:53.225 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.906,0.835)
+2026-08-09 09:41:53.226 | DEBUG    | src.grounding.screenseeker:143 —   ✓ Candidate 3: found=True conf=1.00 center=(0.906,0.835)
+2026-08-09 09:41:53.226 | DEBUG    | src.grounding.candidate_scorer:94 — Scored 1 candidates:
+2026-08-09 09:41:53.227 | DEBUG    | src.grounding.candidate_scorer:96 —   [1] score=0.700 center=(0.960,0.835)
+2026-08-09 09:41:53.227 | DEBUG    | src.grounding.candidate_scorer:135 — NMS: 1 → 1 candidates after suppression
+2026-08-09 09:41:53.227 | INFO     | src.grounding.screenseeker:174 — Best candidate: score=0.700 conf=1.00 center=(0.960,0.835)
+2026-08-09 09:41:53.227 | INFO     | src.grounding.screenseeker:192 — ✅ ScreenSeekeR SUCCESS at depth=0: pixel=(1843,901) confidence=1.00
+2026-08-09 09:41:53.227 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1843,901) confidence=100% depth=0
+2026-08-09 09:41:53.228 | INFO     | __main__:156 — Double-clicking Notepad icon at (1843, 901)
+2026-08-09 09:41:53.228 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1843, 901)
+2026-08-09 09:41:54.415 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:41:54.784 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:41:54.785 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:41:55.998 | INFO     | __main__:180 — Typing post content (268 chars)...
+2026-08-09 09:41:55.999 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 268 characters
+2026-08-09 09:41:57.107 | INFO     | __main__:185 — Saving as post_8.txt...
+2026-08-09 09:41:57.107 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_8.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:42:02.354 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_8.txt
+2026-08-09 09:42:02.354 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:42:02.355 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:42:05.214 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:42:05.215 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:42:05.819 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:42:06.522 | INFO     | __main__:200 — ✅ Post 8 completed successfully → post_8.txt
+2026-08-09 09:42:06.522 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:42:06.523 | INFO     | __main__:103 — Post 9/10 — id=9 — post_9.txt
+2026-08-09 09:42:06.523 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:42:06.524 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:42:06.625 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:42:10.010 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (339).png
+2026-08-09 09:42:10.147 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:42:12.853 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:42:13.738 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (340).png
+2026-08-09 09:42:13.872 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:42:13.873 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:42:13.874 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:42:13.874 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:42:13.875 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 377x479 patch
+2026-08-09 09:42:13.875 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:42:15.472 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 1.0, "center_x": 0.812, "center_y": 0.612, "bbox": [0.693, 0.542, 0.931, 0.722], "reasoning": "The desktop shortcut for notepad.exe with its distinctive blue notebook icon and label is clearly visible on the right side."}
+2026-08-09 09:42:15.473 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=1.00 center=(0.812,0.612)
+2026-08-09 09:42:15.473 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1849, 894)
+2026-08-09 09:42:15.473 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1849,894) confidence=100% depth=0
+2026-08-09 09:42:15.474 | INFO     | __main__:156 — Double-clicking Notepad icon at (1849, 894)
+2026-08-09 09:42:15.474 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1849, 894)
+2026-08-09 09:42:16.647 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:42:17.105 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:42:17.105 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:42:18.314 | INFO     | __main__:180 — Typing post content (359 chars)...
+2026-08-09 09:42:18.314 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 359 characters
+2026-08-09 09:42:19.424 | INFO     | __main__:185 — Saving as post_9.txt...
+2026-08-09 09:42:19.424 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_9.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:42:24.667 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_9.txt
+2026-08-09 09:42:24.667 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:42:24.667 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:42:27.551 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:42:27.551 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
+2026-08-09 09:42:28.154 | DEBUG    | src.automation.mouse_keyboard:65 — Key: n
+2026-08-09 09:42:28.858 | INFO     | __main__:200 — ✅ Post 9 completed successfully → post_9.txt
+2026-08-09 09:42:28.858 | INFO     | __main__:102 — 
+──────────────────────────────────────────────────
+2026-08-09 09:42:28.859 | INFO     | __main__:103 — Post 10/10 — id=10 — post_10.txt
+2026-08-09 09:42:28.859 | INFO     | __main__:104 — ──────────────────────────────────────────────────
+2026-08-09 09:42:28.860 | INFO     | __main__:110 — Attempt 1/3
+2026-08-09 09:42:28.961 | INFO     | src.automation.mouse_keyboard:83 — Minimizing all windows to show desktop (Win+D)
+2026-08-09 09:42:32.357 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (341).png
+2026-08-09 09:42:32.493 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:42:41.802 | INFO     | __main__:120 — Capturing desktop screenshot...
+2026-08-09 09:42:42.808 | DEBUG    | src.capturer.screen_capture:195 — Win+PrintScreen capture OK: 1920x1080 from C:\Users\merna/Pictures/Screenshots\Screenshot (342).png
+2026-08-09 09:42:42.954 | DEBUG    | src.capturer.screen_capture:232 — Desktop captured: 1920x1080
+2026-08-09 09:42:42.956 | INFO     | __main__:124 — Running ScreenSeekeR grounding pipeline...
+2026-08-09 09:42:42.956 | INFO     | src.grounding.screenseeker:108 — ScreenSeekeR depth=0: searching for 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.'
+2026-08-09 09:42:42.956 | INFO     | src.grounding.screenseeker:112 — Target found in Positional Memory cache. Verifying...
+2026-08-09 09:42:42.957 | DEBUG    | src.grounding.grounder:121 — Grounder: locating 'The desktop shortcut that launches Windows Notepad. Identify it visually from its icon and visible label; do not select folders, documents, or taskbar icons.' in 371x486 patch
+2026-08-09 09:42:42.957 | DEBUG    | src.grounding.grounder:146 — Calling Grounder backend: gemini...
+2026-08-09 09:42:44.517 | DEBUG    | src.grounding.grounder:319 — Grounder raw response:
+{"found": true, "confidence": 0.95, "center_x": 0.811, "center_y": 0.638, "bbox": [0.687, 0.551, 0.941, 0.725], "reasoning": "The desktop shortcut with the Notepad icon and 'notepad.exe' label is clearly visible at the bottom right of the image patch."}
+2026-08-09 09:42:44.518 | DEBUG    | src.grounding.grounder:348 — Grounder: found=True conf=0.95 center=(0.811,0.638)
+2026-08-09 09:42:44.518 | INFO     | src.grounding.screenseeker:263 — ✅ Cache hit confirmed: (1849, 904)
+2026-08-09 09:42:44.518 | INFO     | __main__:137 — ✅ Grounding SUCCESS: pixel=(1849,904) confidence=95% depth=0
+2026-08-09 09:42:44.519 | INFO     | __main__:156 — Double-clicking Notepad icon at (1849, 904)
+2026-08-09 09:42:44.519 | DEBUG    | src.automation.mouse_keyboard:23 — Double-clicking at (1849, 904)
+2026-08-09 09:42:45.694 | INFO     | src.automation.window_manager:31 — Waiting for window: 'Notepad' (timeout=6.0s)
+2026-08-09 09:42:46.110 | INFO     | src.automation.window_manager:36 — Window found: 'Notepad'
+2026-08-09 09:42:46.111 | INFO     | __main__:173 — Notepad is open ✓
+2026-08-09 09:42:47.345 | INFO     | __main__:180 — Typing post content (408 chars)...
+2026-08-09 09:42:47.345 | DEBUG    | src.automation.mouse_keyboard:46 — Typing 408 characters
+2026-08-09 09:42:48.454 | INFO     | __main__:185 — Saving as post_10.txt...
+2026-08-09 09:42:48.454 | INFO     | src.automation.mouse_keyboard:96 — Saving file as: post_10.txt in C:\Users\merna\Desktop\tjm-project
+2026-08-09 09:42:53.682 | INFO     | src.automation.mouse_keyboard:130 — File saved: C:\Users\merna\Desktop\tjm-project\post_10.txt
+2026-08-09 09:42:53.682 | INFO     | __main__:189 — Closing Notepad...
+2026-08-09 09:42:53.682 | INFO     | src.automation.mouse_keyboard:140 — Closing Notepad
+2026-08-09 09:42:56.975 | WARNING  | __main__:195 — Notepad still open, pressing Alt+F4 again
+2026-08-09 09:42:56.976 | DEBUG    | src.automation.mouse_keyboard:58 — Hotkey: alt+f4
